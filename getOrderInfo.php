@@ -10,8 +10,8 @@ if (!$con)
   }
   mysql_select_db("test", $con);
   //var_dump($_REQUEST);
-  $orderinfo   = $_POST['orderinfo'];
-  $orderArr = explode('#$#', $orderinfo);
+  $datainfo   = $_POST['datainfo'];
+  $orderArr = explode('#$#', $datainfo);
   print_r($orderArr);
   $sql_value = array();
   $split = "', '";

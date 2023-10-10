@@ -13,27 +13,32 @@ chrome.browserAction.onClicked.addListener(function(tab) {
 
 chrome.webNavigation.onCompleted.addListener(function( tab ){
 	console.log('加载完成***' + tab.tabId );
-	if( flag ){
+	currentTabId = tab.tabId;
+	// if( flag ){
 		sendMsg( tab.tabId );
-	}
+	// }
 });
 
 chrome.extension.onMessage.addListener(
   function(request, sender, sendResponse) {
-    console.log("*******evenPage.js***chrome.extension.onMessage.addListener"); 
+	  // datainfo = request.msg.join("#$#")
+	  datainfo = request.msg
+	  console.log("datainfo：" + datainfo);
+    console.log("*******evenPage.js***chrome.extension.onMessage.addListener");
 	articleData = request;
 	$.ajax({
-		url: "服务器接受数据URL",
+		url: "http://localhost/site/time",
 		cache: false,
 		type: "POST",
-		data: {'orderinfo': request.msg.join("#$#")},
+		// data: {'datainfo': request.msg.join("#$#")},
+		data: {'datainfo': datainfo},
 		dataType: "json"
 	}).done(function(msg) {
-	console.log('*******************json*************' + msg.sql );
-		chrome.tabs.sendMessage(currentTabId, {"cmd":"end"}, 
-			function(response) {    
-				console.log(response);  
-			});
+		console.log('*******************json*************');
+		// chrome.tabs.sendMessage(currentTabId, {"cmd":"end"},
+		// 	function(response) {
+		// 		console.log(response + "==========");
+		// 	});
 		
 	}).fail(function(jqXHR, textStatus) {
 		articleData.firstAccess = textStatus;
@@ -43,6 +48,7 @@ chrome.extension.onMessage.addListener(
 	if('end' == cmd){
 		flag = false;//确保不会自动运行
 	}
+	  sendResponse("")
  });
 
  function sendSku2Info(colores){

@@ -1,8 +1,8 @@
 {
-  "name": "获取某电商后台订单信息",
+  "name": "获取简历信息",
   "version": "1.0",
   "manifest_version": 2,
-  "description": "*********获取某电商后台订单信息*********",
+  "description": "*********获取简历信息*********",
   "browser_action": {
     "default_icon": "icon.png"
   },
@@ -10,14 +10,14 @@
 	"webNavigation",
 	"tabs",
 	"contextMenus",
-	"http://服务器接受数据url/"
+	"http://localhost/site/time"
   ],
   "background": {
     "scripts": ["eventPage.js","jquery-2.1.1.min.js"]
   },
   "content_scripts": [
     {
-      "matches": ["http://抓取页面url/*"],
+      "matches": ["https://rd6.zhaopin.com/app/candidate*"],
       "js": ["jquery-2.1.1.min.js", "contentscript.js"]
     }
   ]
